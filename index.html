@@ -3,439 +3,248 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>स्वाद रेस्टोरेंट | Online Order</title>
-    <!-- Google Fonts for Hindi Look -->
+    <title>स्वाद रेस्टोरेंट | WhatsApp Order</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: #fef9f2; color: #2c2c2c; padding-bottom: 30px; }
+        .header { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); background-size: cover; background-position: center; color: white; padding: 80px 20px; text-align: center; }
+        .header h1 { font-size: 3.5rem; letter-spacing: 3px; text-shadow: 2px 2px 8px black; }
+        .header p { font-size: 1.2rem; background: #e67e22; display: inline-block; padding: 8px 20px; border-radius: 30px; margin-top: 10px; }
+        .navbar { background: #d35400; padding: 15px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .navbar a { color: white; text-decoration: none; margin: 0 20px; font-weight: 600; font-size: 1.1rem; }
+        .container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .section-title { text-align: center; margin-bottom: 30px; font-size: 2.2rem; color: #d35400; border-bottom: 3px solid #f39c12; display: inline-block; padding-bottom: 5px; }
+        .info-box { display: flex; justify-content: space-around; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 40px; flex-wrap: wrap; }
+        .timing { text-align: center; } .timing h3 { color: #e67e22; margin-bottom: 10px; } .timing table { margin: 0 auto; border-collapse: collapse; } .timing td { padding: 5px 15px; border-bottom: 1px dashed #ccc; }
+        .address { text-align: center; }
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .menu-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: transform 0.3s; border: 1px solid #ffeaa7; }
+        .menu-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .menu-card img { width: 100%; height: 180px; object-fit: cover; }
+        .menu-info { padding: 20px; } .menu-info h3 { margin-bottom: 5px; color: #2c3e50; } .menu-info .price { font-size: 1.4rem; font-weight: bold; color: #27ae60; margin: 10px 0; } .menu-info .type { display: inline-block; background: #f1c40f; padding: 3px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 15px; }
+        .btn-add { background: #d35400; color: white; border: none; padding: 12px 20px; width: 100%; border-radius: 40px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.2s; } .btn-add:hover { background: #a04000; }
+        .cart-section { background: white; border-radius: 20px; padding: 25px; margin-top: 40px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+        .cart-items { list-style: none; margin: 20px 0; } .cart-items li { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+        .total { font-size: 1.5rem; font-weight: bold; text-align: right; margin: 20px 0; }
+        .btn-order { background: #2ecc71; color: white; border: none; padding: 15px 30px; font-size: 1.2rem; border-radius: 50px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.2s; } .btn-order:hover { background: #27ae60; }
+        .clear-btn { background: #e74c3c; color: white; border: none; padding: 8px 16px; border-radius: 30px; cursor: pointer; margin-left: 10px; }
+        footer { text-align: center; margin-top: 50px; color: #7f8c8d; }
 
-        body {
-            background-color: #fef9f2;
-            color: #2c2c2c;
-            padding-bottom: 30px;
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 80px 20px;
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 3.5rem;
-            letter-spacing: 3px;
-            text-shadow: 2px 2px 8px black;
-        }
-
-        .header p {
-            font-size: 1.2rem;
-            background: #e67e22;
-            display: inline-block;
-            padding: 8px 20px;
-            border-radius: 30px;
-            margin-top: 10px;
-        }
-
-        /* Navigation */
-        .navbar {
-            background: #d35400;
-            padding: 15px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            margin: 0 20px;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.2rem;
-            color: #d35400;
-            border-bottom: 3px solid #f39c12;
-            display: inline-block;
-            padding-bottom: 5px;
-        }
-
-        /* Info Box */
-        .info-box {
-            display: flex;
-            justify-content: space-around;
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .timing {
-            text-align: center;
-        }
-
-        .timing h3 {
-            color: #e67e22;
-            margin-bottom: 10px;
-        }
-
-        .timing table {
-            margin: 0 auto;
-            border-collapse: collapse;
-        }
-
-        .timing td {
-            padding: 5px 15px;
-            border-bottom: 1px dashed #ccc;
-        }
-
-        .address {
-            text-align: center;
-        }
-
-        /* Menu Grid */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .menu-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-            border: 1px solid #ffeaa7;
-        }
-
-        .menu-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-
-        .menu-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-        }
-
-        .menu-info {
-            padding: 20px;
-        }
-
-        .menu-info h3 {
-            margin-bottom: 5px;
-            color: #2c3e50;
-        }
-
-        .menu-info .price {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #27ae60;
-            margin: 10px 0;
-        }
-
-        .menu-info .type {
-            display: inline-block;
-            background: #f1c40f;
-            padding: 3px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-
-        .btn-add {
-            background: #d35400;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            width: 100%;
-            border-radius: 40px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .btn-add:hover {
-            background: #a04000;
-        }
-
-        /* Cart Section */
-        .cart-section {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            margin-top: 40px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-        }
-
-        .cart-items {
-            list-style: none;
-            margin: 20px 0;
-        }
-
-        .cart-items li {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .total {
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-align: right;
-            margin: 20px 0;
-        }
-
-        .btn-order {
-            background: #2ecc71;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border-radius: 50px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: 0.2s;
-        }
-
-        .btn-order:hover {
-            background: #27ae60;
-        }
-
-        .clear-btn {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 30px;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            color: #7f8c8d;
-        }
-
-        /* Responsive */
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 2.5rem;
-            }
-            .navbar a {
-                margin: 0 10px;
-                font-size: 0.9rem;
-            }
-        }
+        /* Modal Popup Form */
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 25px; max-width: 500px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.2); }
+        .modal-content h2 { color: #d35400; margin-bottom: 20px; text-align: center; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { font-weight: 600; display: block; margin-bottom: 5px; }
+        .form-group input, .form-group textarea { width: 100%; padding: 12px 15px; border: 2px solid #f1c40f; border-radius: 30px; font-size: 1rem; }
+        .modal-buttons { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-submit { background: #27ae60; color: white; border: none; padding: 12px; border-radius: 40px; font-weight: bold; flex: 2; cursor: pointer; }
+        .btn-close { background: #95a5a6; color: white; border: none; padding: 12px; border-radius: 40px; font-weight: bold; flex: 1; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <!-- Header Section -->
-    <div class="header">
-        <h1>🍛 स्वाद रेस्टोरेंट</h1>
-        <p>दिल से बनाया, प्यार से परोसा</p>
-    </div>
+<div class="header">
+    <h1>🍛 स्वाद रेस्टोरेंट</h1>
+    <p>दिल से बनाया, प्यार से परोसा</p>
+</div>
 
-    <!-- Sticky Navigation -->
-    <div class="navbar">
-        <a href="#menu">मेन्यू</a>
-        <a href="#timing">समय</a>
-        <a href="#cart">ऑर्डर कार्ट</a>
-        <a href="#contact">संपर्क</a>
-    </div>
+<div class="navbar">
+    <a href="#menu">मेन्यू</a>
+    <a href="#timing">समय</a>
+    <a href="#cart">ऑर्डर कार्ट</a>
+    <a href="#contact">संपर्क</a>
+</div>
 
-    <div class="container">
-        <!-- Timing & Address Section -->
-        <div id="timing" class="info-box">
-            <div class="timing">
-                <h3>⏰ रेस्टोरेंट टाइमिंग</h3>
-                <table>
-                    <tr><td>सोमवार - शुक्रवार</td><td>11:00 AM - 11:00 PM</td></tr>
-                    <tr><td>शनिवार - रविवार</td><td>10:00 AM - 12:00 AM</td></tr>
-                    <tr><td>बुधवार</td><td style="color: #e74c3c;">बंद</td></tr>
-                </table>
-            </div>
-            <div class="address">
-                <h3>📍 पता</h3>
-                <p>शॉप नं. 5, फूड स्ट्रीट,<br>कनॉट प्लेस, नई दिल्ली - 110001</p>
-                <p>📞 +91 80098 40735</p>
-                <p>💬 WhatsApp: 8009840735</p>
-            </div>
+<div class="container">
+    <div id="timing" class="info-box">
+        <div class="timing">
+            <h3>⏰ रेस्टोरेंट टाइमिंग</h3>
+            <table>
+                <tr><td>सोमवार - शुक्रवार</td><td>11:00 AM - 11:00 PM</td></tr>
+                <tr><td>शनिवार - रविवार</td><td>10:00 AM - 12:00 AM</td></tr>
+                <tr><td>बुधवार</td><td style="color: #e74c3c;">बंद</td></tr>
+            </table>
         </div>
-
-        <!-- Menu Section -->
-        <h2 id="menu" class="section-title">✨ हमारा खास मेन्यू</h2>
-        <div class="menu-grid" id="menuContainer">
-            <!-- Menu items will be injected via JavaScript -->
-        </div>
-
-        <!-- Cart Section -->
-        <div id="cart" class="cart-section">
-            <h2>🛒 आपका ऑर्डर कार्ट</h2>
-            <ul class="cart-items" id="cartList">
-                <li style="color: #95a5a6; justify-content: center;">अभी तक कुछ नहीं जोड़ा गया है...</li>
-            </ul>
-            <div class="total">
-                कुल बिल: ₹<span id="totalPrice">0</span>
-            </div>
-            <div style="display: flex; gap: 10px;">
-                <button class="btn-order" id="orderNowBtn">📝 आगे बढ़ें (चेकआउट)</button>
-                <button class="clear-btn" id="clearCartBtn">🧹 कार्ट खाली करें</button>
-            </div>
-            <p style="margin-top: 15px; font-size: 0.9rem; color: #7f8c8d;">*चेकआउट करने पर आपको डिलीवरी जानकारी भरनी होगी।</p>
-        </div>
-
-        <!-- Contact Section -->
-        <div id="contact" style="margin-top: 50px; text-align: center;">
-            <h2 class="section-title">📞 संपर्क करें</h2>
-            <p>घर बैठे ऑर्डर करने के लिए कॉल करें या सीधे वेबसाइट से ऑर्डर करें।</p>
-            <p style="font-size: 1.8rem; font-weight: bold; margin-top: 10px;">📱 8009840735</p>
-            <p>या ईमेल करें: hello@swadrestaurant.com</p>
-            <p style="margin-top: 15px;">💬 <a href="https://wa.me/918009840735" target="_blank" style="color: #25D366; text-decoration: none; font-weight: bold;">WhatsApp पर सीधे मैसेज करें</a></p>
+        <div class="address">
+            <h3>📍 पता</h3>
+            <p>शॉप नं. 5, फूड स्ट्रीट,<br>कनॉट प्लेस, नई दिल्ली - 110001</p>
+            <p>📞 +91 80098 40735</p>
         </div>
     </div>
 
-    <footer>
-        © 2025 स्वाद रेस्टोरेंट | सभी अधिकार सुरक्षित
-    </footer>
+    <h2 id="menu" class="section-title">✨ हमारा खास मेन्यू</h2>
+    <div class="menu-grid" id="menuContainer"></div>
 
-    <script>
-        // मेन्यू डेटा (आप इसे अपने हिसाब से बदल सकते हैं)
-        const menuItems = [
-            { id: 1, name: "पनीर बटर मसाला", price: 280, type: "शाकाहारी", img: "https://images.pexels.com/photos/9609838/pexels-photo-9609838.jpeg?auto=compress&cs=tinysrgb&w=600" },
-            { id: 2, name: "दाल मखनी", price: 220, type: "शाकाहारी", img: "https://images.pexels.com/photos/674574/pexels-photo-674574.jpeg?auto=compress&cs=tinysrgb&w=600" },
-            { id: 3, name: "चिकन बिरयानी", price: 320, type: "मांसाहारी", img: "https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg?auto=compress&cs=tinysrgb&w=600" },
-            { id: 4, name: "बटर चिकन", price: 350, type: "मांसाहारी", img: "https://images.pexels.com/photos/7625056/pexels-photo-7625056.jpeg?auto=compress&cs=tinysrgb&w=600" },
-            { id: 5, name: "गार्लिक नान (2 पीस)", price: 60, type: "शाकाहारी", img: "https://images.pexels.com/photos/10232489/pexels-photo-10232489.jpeg?auto=compress&cs=tinysrgb&w=600" },
-            { id: 6, name: "गुलाब जामुन (2 पीस)", price: 80, type: "मिठाई", img: "https://images.pexels.com/photos/1907227/pexels-photo-1907227.jpeg?auto=compress&cs=tinysrgb&w=600" }
-        ];
+    <div id="cart" class="cart-section">
+        <h2>🛒 आपका ऑर्डर कार्ट</h2>
+        <ul class="cart-items" id="cartList">
+            <li style="color: #95a5a6; justify-content: center;">अभी तक कुछ नहीं जोड़ा गया है...</li>
+        </ul>
+        <div class="total">कुल बिल: ₹<span id="totalPrice">0</span></div>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn-order" id="orderNowBtn">📲 ऑर्डर प्लेस करें</button>
+            <button class="clear-btn" id="clearCartBtn">🧹 कार्ट खाली करें</button>
+        </div>
+        <p style="margin-top: 15px; font-size: 0.9rem; color: #7f8c8d;">*ऑर्डर बटन दबाने पर आपको डिटेल्स भरनी होंगी, फिर व्हाट्सएप पर ऑर्डर भेज दिया जाएगा।</p>
+    </div>
 
-        // कार्ट ऐरे
-        let cart = [];
+    <div id="contact" style="margin-top: 50px; text-align: center;">
+        <h2 class="section-title">📞 संपर्क करें</h2>
+        <p style="font-size: 1.8rem; font-weight: bold;">📱 8009840735</p>
+        <p>या ईमेल: hello@swadrestaurant.com</p>
+    </div>
+</div>
 
-        // मेन्यू दिखाने का फंक्शन
-        function displayMenu() {
-            const container = document.getElementById('menuContainer');
-            container.innerHTML = '';
-            menuItems.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'menu-card';
-                card.innerHTML = `
-                    <img src="${item.img}" alt="${item.name}" onerror="this.src='https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600'">
-                    <div class="menu-info">
-                        <h3>${item.name}</h3>
-                        <span class="type">${item.type}</span>
-                        <div class="price">₹${item.price}</div>
-                        <button class="btn-add" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}">➕ कार्ट में डालें</button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
+<footer>© 2025 स्वाद रेस्टोरेंट | सभी अधिकार सुरक्षित</footer>
 
-            // सभी "Add to Cart" बटन पर इवेंट लगाएं
-            document.querySelectorAll('.btn-add').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const id = parseInt(btn.dataset.id);
-                    const name = btn.dataset.name;
-                    const price = parseInt(btn.dataset.price);
-                    addToCart({ id, name, price });
+<!-- ऑर्डर फॉर्म मोडल -->
+<div id="orderModal" class="modal">
+    <div class="modal-content">
+        <h2>📝 डिलीवरी जानकारी</h2>
+        <form id="customerForm">
+            <div class="form-group">
+                <label>👤 पूरा नाम</label>
+                <input type="text" id="custName" placeholder="राहुल शर्मा" required>
+            </div>
+            <div class="form-group">
+                <label>📞 मोबाइल नंबर</label>
+                <input type="tel" id="custPhone" pattern="[0-9]{10}" placeholder="10 अंकों का नंबर" required>
+            </div>
+            <div class="form-group">
+                <label>📍 डिलीवरी पता</label>
+                <textarea id="custAddress" rows="2" placeholder="पूरा पता" required></textarea>
+            </div>
+            <div class="form-group">
+                <label>💬 निर्देश (वैकल्पिक)</label>
+                <textarea id="custNote" rows="2" placeholder="जैसे: मिर्च कम..."></textarea>
+            </div>
+            <div class="modal-buttons">
+                <button type="button" class="btn-submit" id="confirmOrderBtn">✅ व्हाट्सएप पर भेजें</button>
+                <button type="button" class="btn-close" id="closeModalBtn">❌ रद्द करें</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const menuItems = [
+        { id: 1, name: "पनीर बटर मसाला", price: 280, type: "शाकाहारी", img: "https://images.pexels.com/photos/9609838/pexels-photo-9609838.jpeg?auto=compress&cs=tinysrgb&w=600" },
+        { id: 2, name: "दाल मखनी", price: 220, type: "शाकाहारी", img: "https://images.pexels.com/photos/674574/pexels-photo-674574.jpeg?auto=compress&cs=tinysrgb&w=600" },
+        { id: 3, name: "चिकन बिरयानी", price: 320, type: "मांसाहारी", img: "https://images.pexels.com/photos/1624487/pexels-photo-1624487.jpeg?auto=compress&cs=tinysrgb&w=600" },
+        { id: 4, name: "बटर चिकन", price: 350, type: "मांसाहारी", img: "https://images.pexels.com/photos/7625056/pexels-photo-7625056.jpeg?auto=compress&cs=tinysrgb&w=600" },
+        { id: 5, name: "गार्लिक नान (2 पीस)", price: 60, type: "शाकाहारी", img: "https://images.pexels.com/photos/10232489/pexels-photo-10232489.jpeg?auto=compress&cs=tinysrgb&w=600" },
+        { id: 6, name: "गुलाब जामुन (2 पीस)", price: 80, type: "मिठाई", img: "https://images.pexels.com/photos/1907227/pexels-photo-1907227.jpeg?auto=compress&cs=tinysrgb&w=600" }
+    ];
+
+    let cart = [];
+    const RESTAURANT_WHATSAPP = "918009840735"; // आपका नंबर
+
+    function displayMenu() {
+        const container = document.getElementById('menuContainer');
+        container.innerHTML = '';
+        menuItems.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'menu-card';
+            card.innerHTML = `
+                <img src="${item.img}" alt="${item.name}" onerror="this.src='https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=600'">
+                <div class="menu-info">
+                    <h3>${item.name}</h3>
+                    <span class="type">${item.type}</span>
+                    <div class="price">₹${item.price}</div>
+                    <button class="btn-add" data-id="${item.id}" data-name="${item.name}" data-price="${item.price}">➕ कार्ट में डालें</button>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+        document.querySelectorAll('.btn-add').forEach(btn => {
+            btn.addEventListener('click', () => {
+                addToCart({
+                    id: parseInt(btn.dataset.id),
+                    name: btn.dataset.name,
+                    price: parseInt(btn.dataset.price)
                 });
             });
+        });
+    }
+
+    function addToCart(item) {
+        const existing = cart.find(i => i.id === item.id);
+        if (existing) existing.quantity += 1;
+        else cart.push({ ...item, quantity: 1 });
+        updateCartUI();
+    }
+
+    function updateCartUI() {
+        const list = document.getElementById('cartList');
+        const totalSpan = document.getElementById('totalPrice');
+        if (cart.length === 0) {
+            list.innerHTML = '<li style="color: #95a5a6; justify-content: center;">अभी तक कुछ नहीं जोड़ा गया है...</li>';
+            totalSpan.textContent = '0';
+            return;
         }
+        let total = 0;
+        list.innerHTML = '';
+        cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            const li = document.createElement('li');
+            li.innerHTML = `<span>${item.name} (x${item.quantity})</span><span>₹${itemTotal}</span>`;
+            list.appendChild(li);
+        });
+        totalSpan.textContent = total;
+    }
 
-        // कार्ट में आइटम जोड़ें
-        function addToCart(item) {
-            const existingItem = cart.find(i => i.id === item.id);
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ ...item, quantity: 1 });
-            }
-            updateCartUI();
-        }
+    function clearCart() { cart = []; updateCartUI(); }
 
-        // कार्ट UI अपडेट करें
-        function updateCartUI() {
-            const cartList = document.getElementById('cartList');
-            const totalSpan = document.getElementById('totalPrice');
-            
-            if (cart.length === 0) {
-                cartList.innerHTML = '<li style="color: #95a5a6; justify-content: center;">अभी तक कुछ नहीं जोड़ा गया है...</li>';
-                totalSpan.textContent = '0';
-                return;
-            }
+    // मोडल से संबंधित
+    const modal = document.getElementById('orderModal');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const confirmBtn = document.getElementById('confirmOrderBtn');
 
-            let total = 0;
-            cartList.innerHTML = '';
-            cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                total += itemTotal;
-                const li = document.createElement('li');
-                li.innerHTML = `
-                    <span>${item.name} (x${item.quantity})</span>
-                    <span>₹${itemTotal}</span>
-                `;
-                cartList.appendChild(li);
-            });
-            totalSpan.textContent = total;
-        }
+    function showModal() {
+        if (cart.length === 0) { alert('पहले कार्ट में कुछ डालें'); return; }
+        modal.style.display = 'flex';
+    }
 
-        // ऑर्डर बटन पर क्लिक करने पर चेकआउट पेज पर भेजें
-        function proceedToCheckout() {
-            if (cart.length === 0) {
-                alert('कृपया पहले कार्ट में कुछ आइटम डालें।');
-                return;
-            }
+    closeBtn.addEventListener('click', () => modal.style.display = 'none');
+    window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
 
-            // कार्ट डेटा को JSON में बदलें और URL के जरिए checkout.html पर भेजें
-            const cartData = encodeURIComponent(JSON.stringify(cart));
-            window.location.href = `checkout.html?cart=${cartData}`;
-        }
+    confirmBtn.addEventListener('click', () => {
+        const name = document.getElementById('custName').value.trim();
+        const phone = document.getElementById('custPhone').value.trim();
+        const address = document.getElementById('custAddress').value.trim();
+        const note = document.getElementById('custNote').value.trim();
 
-        // कार्ट खाली करें
-        function clearCart() {
-            cart = [];
-            updateCartUI();
-        }
+        if (!name || !phone || !address) { alert('कृपया नाम, फोन और पता भरें'); return; }
+        if (!/^\d{10}$/.test(phone)) { alert('सही 10 अंकों का मोबाइल नंबर डालें'); return; }
 
-        // इवेंट लिसनर
-        document.getElementById('orderNowBtn').addEventListener('click', proceedToCheckout);
-        document.getElementById('clearCartBtn').addEventListener('click', clearCart);
+        // व्हाट्सएप मैसेज बनाएं
+        let msg = `🍛 *नया ऑर्डर - स्वाद रेस्टोरेंट* 🍛\n\n`;
+        msg += `👤 *नाम:* ${name}\n📞 *फोन:* ${phone}\n📍 *पता:* ${address}\n`;
+        if (note) msg += `💬 *निर्देश:* ${note}\n`;
+        msg += `\n--- *ऑर्डर आइटम* ---\n`;
+        let total = 0;
+        cart.forEach(item => {
+            const itotal = item.price * item.quantity;
+            msg += `• ${item.name} (${item.quantity} x ₹${item.price}) = ₹${itotal}\n`;
+            total += itotal;
+        });
+        msg += `\n💰 *कुल राशि: ₹${total}*\n`;
+        msg += `\n🙏 कृपया ऑर्डर कन्फर्म करें और डिलीवरी समय बताएं।`;
 
-        // पेज लोड होने पर मेन्यू दिखाओ
-        displayMenu();
-    </script>
+        const url = `https://wa.me/${RESTAURANT_WHATSAPP}?text=${encodeURIComponent(msg)}`;
+        window.open(url, '_blank');
+        modal.style.display = 'none';
+        clearCart();
+        document.getElementById('customerForm').reset();
+        alert('ऑर्डर व्हाट्सएप पर भेज दिया गया है। रेस्टोरेंट जल्द ही आपसे संपर्क करेगा।');
+    });
+
+    document.getElementById('orderNowBtn').addEventListener('click', showModal);
+    document.getElementById('clearCartBtn').addEventListener('click', clearCart);
+    displayMenu();
+</script>
 </body>
 </html>
